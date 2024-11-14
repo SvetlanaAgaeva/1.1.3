@@ -22,7 +22,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.executeUpdate(); // Выполняем создание таблицы
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
