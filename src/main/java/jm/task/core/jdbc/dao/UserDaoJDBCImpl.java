@@ -31,8 +31,8 @@ public class UserDaoJDBCImpl implements UserDao {
     public void dropUsersTable() {
 
         try (Connection connection = Util.getConnection();
-             PreparedStatement statement = connection.prepareStatement(
-                     "DROP TABLE Users1")) {
+             Statement statement = connection.createStatement()) {
+            statement.executeUpdate("DROP TABLE Users1");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -69,9 +69,9 @@ public class UserDaoJDBCImpl implements UserDao {
     public List<User> getAllUsers() {
 
         List<User> Users1 = new ArrayList<>();
-        try (Connection connection = Util.getConnection();Statement statement = connection.createStatement()){
+        try (Connection connection = Util.getConnection(); Statement statement = connection.createStatement()) {
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM Users1") ;
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Users1");
             while (resultSet.next()) {
                 User user = new User();
                 user.setId(resultSet.getLong("id"));
@@ -89,8 +89,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void cleanUsersTable() {
         try (Connection connection = Util.getConnection();
-             Statement statement = connection.createStatement())
-        {
+             Statement statement = connection.createStatement()) {
             statement.execute("DELETE FROM Users1");
         } catch (SQLException e) {
             e.printStackTrace();
